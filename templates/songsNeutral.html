@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neutral Songs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f0f0f0;
+            padding-top: 60px; /* To make space for the fixed nav bar */
+        }
+
+        nav {
+            width: 100%;
+            background-color: #333;
+            display: flex;
+            justify-content: space-between; /* Align items to the ends */
+            align-items: center; /* Center items vertically */
+            padding: 10px 20px; /* Adjust padding for better spacing */
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-buttons button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .nav-buttons button:hover {
+            background-color: #f39c12;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 300px;
+        }
+
+        .search-button {
+            padding: 8px 16px;
+            background-color: #444;
+            border: none;
+            color: white;
+            font-size: 16px;
+            margin-left: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #666;
+        }
+
+        .content {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .song {
+            display: none;
+            width: 200px;
+            margin: 10px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .song.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .song img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s;
+        }
+
+        .song:hover img {
+            transform: scale(1.05);
+        }
+
+        .song-label {
+            padding: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-buttons">
+            <button onclick="filterSongs('all')">Home</button>
+            <button onclick="filterSongs('English')">English</button>
+            <button onclick="filterSongs('Hindi')">Hindi</button>
+            <button onclick="filterSongs('Kannada')">Kannada</button>
+            <button onclick="filterSongs('Telugu')">Telugu</button>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="Search for songs..." onkeydown="if (event.key === 'Enter') searchSpotify()">
+            <button onclick="searchSpotify()" class="search-button">Search</button>
+        </div>
+    </nav>
+    <div class="content">
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/track/3Ofmpyhv5UAQ70mENzB277?autoplay=true"><img src="../static/Neutral_Songs/e1.png"></a>
+            <div class="song-label">Astronaut In The Ocean - English</div>
+        </div>
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/track/6FuGJB290AQMAHTfjOYVaK?autoplay=true"><img src="../static/Neutral_Songs/e2.png"></a>
+            <div class="song-label">Mood - English</div>
+        </div>
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/track/0lYBSQXN6rCTvUZvg9S0lU?autoplay=true"><img src="../static/Neutral_Songs/e3.png"></a>
+            <div class="song-label">Let Me Love you - English</div>
+        </div>
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/track/4w8niZpiMy6qz1mntFA5uM?autoplay=true"><img src="../static/Neutral_Songs/e4.png"></a>
+            <div class="song-label">Taki Taki - English</div>
+        </div>
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/track/1t9WgS8FN0534tLBRwbaxO?autoplay=true"><img src="../static/Neutral_Songs/e5.png"></a>
+            <div class="song-label">Whoopty - English</div>
+        </div>
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/track/0TK2YIli7K1leLovkQiNik?autoplay=true"><img src="../static/Neutral_Songs/e6.png"></a>
+            <div class="song-label">Senorita - English</div>
+        </div>
+
+
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/0gRNu9dVzi5aC87AI1empZ?autoplay=true"><img src="../static/Neutral_Songs/h1.png"></a>
+            <div class="song-label">Jab Se Tere Naina - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/4orEOb27nON0TWsHvlVAxb?autoplay=true"><img src="../static/Neutral_Songs/h2.png"></a>
+            <div class="song-label">Baarishein - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/3oKuEvvclPj25AifUVoKxS?autoplay=true"><img src="../static/Neutral_Songs/h3.png"></a>
+            <div class="song-label">Tum Hi Ho - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/5XD2tP1DRH2NJgp45HiEQA?autoplay=true"><img src="../static/Neutral_Songs/h4.png"></a>
+            <div class="song-label">Bol Do Na Zara - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/2ONQEjSlhwnXZq1XxW7Qfy?autoplay=true"><img src="../static/Neutral_Songs/h5.png"></a>
+            <div class="song-label">Ek Ladki Ko Dekha  - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/75Ak0cit8hV604Wjlq1gf2?autoplay=true"><img src="../static/Neutral_Songs/h6.png"></a>
+            <div class="song-label">Aaja We Mahiya - Hindi</div>
+        </div>
+
+
+
+
+
+
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/6OFQpD2FipymnVXuOn4w4r?autoplay=true"><img src="../static/Neutral_Songs/k1.png"></a>
+            <div class="song-label">Love You chinna - Kannada</div>
+        </div>
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/75YOTlPnJ6WzHIy0gru8U8?autoplay=true"><img src="../static/Neutral_Songs/k2.png"></a>
+            <div class="song-label">O Nidhima - Kannada</div>
+        </div>
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/1KczIN56FQ0jsVsc3uwbbO?autoplay=true"><img src="../static/Neutral_Songs/k3.png"></a>
+            <div class="song-label">Neene Yendiga - Kannada</div>
+        </div>
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/5z23cXr1T3CytiM0HwQy1R?autoplay=true"><img src="../static/Neutral_Songs/k4.png"></a>
+            <div class="song-label">Yeno Yeno Aagide - Kannada</div>
+        </div>
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/33t67ioue8b1X553DUMulH?autoplay=true"><img src="../static/Neutral_Songs/k5.png"></a>
+            <div class="song-label">Belageddu - Kannada</div>
+        </div>
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/1ojXT3hZj1vShiCOKliSt0?autoplay=true"><img src="../static/Neutral_Songs/k6.png"></a>
+            <div class="song-label">Neenire Saniha - Kannada</div>
+        </div>
+
+
+
+
+
+        <div class="song active" data-language="Telugu">
+            <a href="https://open.spotify.com/track/3Ff59gd5bOAQaaxMMEutkq?autoplay=true"><img src="../static/Neutral_Songs/t1.png"></a>
+            <div class="song-label">OMG Pilla - Telugu</div>
+        </div>
+        <div class="song active" data-language="Telugu">
+            <a href="https://open.spotify.com/track/6iyl5LXTjBngwi6uiTcG3y?autoplay=true"><img src="../static/Neutral_Songs/t2.png"></a>
+            <div class="song-label">Zindabad Zindabad - Telugu</div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+    function searchSpotify() {
+        const query = document.getElementById('search-input').value;
+        if (query) {
+            window.location.href = `https://open.spotify.com/search/${encodeURIComponent(query)}`;
+        }
+    }
+
+    function filterSongs(language) {
+        const songs = document.querySelectorAll('.song');
+        songs.forEach(song => {
+            if (language === 'all' || song.getAttribute('data-language') === language) {
+                song.classList.add('active');
+            } else {
+                song.classList.remove('active');
+            }
+        });
+    }
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

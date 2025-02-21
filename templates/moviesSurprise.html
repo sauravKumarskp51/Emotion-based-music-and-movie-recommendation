@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise_Movies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 60px; /* To make space for the fixed navbar */
+            background-color: #f0f0f0;
+        }
+        .movie p{
+            color: #FFFFFF;
+            font-size: 14px;
+        }
+        .img-box {
+            width: 300px;
+            height: 400px;
+            margin: 10px;
+            overflow: hidden;
+            border: 4px solid black;
+            border-radius: 10px;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        .header {
+            width: 100%;
+            background-color: #333;
+            background-position: center;
+            background-size: cover;
+            overflow-x: hidden;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.1);
+            transition: 1s;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .box img:hover {
+            transform: scale(1.1);
+            z-index: 2;
+        }
+
+        figure {
+            display: inline-block;
+            margin: 10px;
+            text-align: center;
+            #flex: 1 1 300px;
+        }
+
+        button {
+            position: static;
+            left: 50%;
+            background-color: #444;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #666;
+        }
+
+        nav {
+            width: 100%;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between; /* Align items to the ends */
+            align-items: center; /* Center items vertically */
+            padding: 10px 20px; /* Adjust padding for better spacing */
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 300px;
+        }
+
+        .search-button {
+            padding: 8px 16px;
+            background-color: #444;
+            border: none;
+            color: white;
+            font-size: 16px;
+            margin-left: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px;
+            }
+
+            figure {
+                flex: 1 1 45%;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start; /* Align items to the start */
+            }
+
+            .search-input {
+                width: 200px;
+            }
+
+            .search-button {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            figure {
+                flex: 1 1 100%;
+            }
+
+            nav {
+                padding: 10px; /* Adjust padding for better spacing */
+            }
+
+            .search-input {
+                width: 150px;
+                font-size: 12px;
+            }
+
+            .search-button {
+                padding: 4px 8px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div>
+            <button onclick="filterMovies('All')">Home</button>
+            <button onclick="filterMovies('English')">English</button>
+            <button onclick="filterMovies('Hindi')">Hindi</button>
+            <button onclick="filterMovies('Kannada')">Kannada</button>
+            <button onclick="filterMovies('Telugu')">Telugu</button>
+        </div>
+        <div class="search-container">
+            <input type="text" id="movie-search" class="search-input" placeholder="Search for a movie..." onkeydown="if (event.key === 'Enter') searchMovie()">
+            <button onclick="searchMovie()" class="search-button">Search</button>
+        </div>
+    </nav>
+    <div class="header">
+        <div class="box" id="movie-box">
+            <figure class="movie" data-language="English">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt0167404/"><img src="../static/Surprise_Movies/e1.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:The sixth sense</p>
+                <button>Language: English</button>
+            </figure>
+            <figure class="movie" data-language="English">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt0119174/"><img src="../static/Surprise_Movies/e2.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title: The game</p>
+                <button>Language: English</button>
+            </figure>
+            <figure class="movie" data-language="English">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt2872718/"><img src="../static/Surprise_Movies/e3.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title: Nightcrawler</p>
+                <button>Language: English</button>
+            </figure>
+            <figure class="movie" data-language="English">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt0100157/"><img src="../static/Surprise_Movies/e4.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title: Misery</p>
+                <button>Language: English</button>
+            </figure>
+            <figure class="movie" data-language="English">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt0117998/"><img src="../static/Surprise_Movies/e5.jpg" alt="Movie Poster"></a>
+                </div>
+                <p>Title: Twister</p>
+                <button>Language: English</button>
+            </figure>
+            <figure class="movie" data-language="English">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt0327056/"><img src="../static/Surprise_Movies/e6.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title: Mystic river</p>
+                <button>Language: English</button>
+            </figure>
+            <figure class="movie" data-language="English">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt0482571/"><img src="../static/Surprise_Movies/e7.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title: The prestige</p>
+                <button>Language: English</button>
+            </figure>
+            <figure class="movie" data-language="English">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt0363988/"><img src="../static/Surprise_Movies/e8.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title: Secret window</p>
+                <button>Language: English</button>
+            </figure>
+
+
+
+
+
+
+
+            <!--Telugu movie-->
+            <figure class="movie" data-language="Telugu">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt7797658/"><img src="../static/Surprise_Movies/t1.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title: Awe!</p>
+                <button>Language: Telugu</button>
+            </figure>
+            <figure class="movie" data-language="Telugu">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt20850406/"><img src="../static/Surprise_Movies/t2.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Sita ramam</p>
+                <button>Language: Telugu</button>
+            </figure>
+            <figure class="movie" data-language="Telugu">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt28870064/"><img src="../static/Surprise_Movies/t3.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Tantiram</p>
+                <button>Language: Telugu</button>
+            </figure>
+            <figure class="movie" data-language="Telugu">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt13130760/"><img src="../static/Surprise_Movies/t4.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Hit</p>
+                <button>Language: Telugu</button>
+            </figure>
+            <figure class="movie" data-language="Telugu">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt31616213/"><img src="../static/Surprise_Movies/t5.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Prasanna vadanam</p>
+                <button>Language: Telugu</button>
+            </figure>
+            <figure class="movie" data-language="Telugu">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt14411774/"><img src="../static/Surprise_Movies/t6.jpg" alt="Movie Poster"></a>
+                </div>
+                <p>Title: Agent</p>
+                <button>Language: Telugu</button>
+            </figure>
+            <figure class="movie" data-language="Telugu">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt11102262/"><img src="../static/Surprise_Movies/t7.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Cadver</p>
+                <button>Language: Telugu</button>
+            </figure>
+            <figure class="movie" data-language="Telugu">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt8914492/"><img src="../static/Surprise_Movies/t8.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title: Game over</p>
+                <button>Language: Telugu</button>
+            </figure>
+
+
+
+
+
+
+
+            <!--Hindi movie-->
+            <figure class="movie" data-language="Hindi">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt1821480/"><img src="../static/Surprise_Movies/h1.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Kahaani</p>
+                <button>Language: Hindi</button>
+            </figure>
+            <figure class="movie" data-language="Hindi">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt8108198/"><img src="../static/Surprise_Movies/h2.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Andhadhum</p>
+                <button>Language: Hindi</button>
+            </figure>
+            <figure class="movie" data-language="Hindi">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt1787988/"><img src="../static/Surprise_Movies/h3.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Talaash</p>
+                <button>Language: Hindi</button>
+            </figure>
+            <figure class="movie" data-language="Hindi">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt1280558/"><img src="../static/Surprise_Movies/h4.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:A wednesday</p>
+                <button>Language: Hindi</button>
+            </figure>
+            <figure class="movie" data-language="Hindi">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt8130968/"><img src="../static/Surprise_Movies/h5.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Badla</p>
+                <button>Language: Hindi</button>
+            </figure>
+            <figure class="movie" data-language="Hindi">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt6692354/"><img src="../static/Surprise_Movies/h6.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Ittefaq</p>
+                <button>Language: Hindi</button>
+            </figure>
+            <figure class="movie" data-language="Hindi">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt0920464/"><img src="../static/Surprise_Movies/h7.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title: Manorama six feet under</p>
+                <button>Language: Hindi</button>
+            </figure>
+            <figure class="movie" data-language="Hindi">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt3495030/"><img src="../static/Surprise_Movies/h8.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title: Dum laga ke haisha</p>
+                <button>Language: Hindi</button>
+            </figure>
+
+
+
+
+
+
+
+            <!--Kannada movie-->
+            <figure class="movie" data-language="Kannada">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt11379988/"><img src="../static/Surprise_Movies/k1.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:James</p>
+                <button>Language: Kannada</button>
+            </figure>
+            <figure class="movie" data-language="Kannada">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt12015102/"><img src="../static/Surprise_Movies/k2.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Vikrant rona</p>
+                <button>Language: Kannada</button>
+            </figure>
+            <figure class="movie" data-language="Kannada">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt7968456/"><img src="../static/Surprise_Movies/k3.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title: Kurukshetra</p>
+                <button>Language: Kannada</button>
+            </figure>
+            <figure class="movie" data-language="Kannada">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt6359554/"><img src="../static/Surprise_Movies/k4.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Raajakumara</p>
+                <button>Language: Kannada</button>
+            </figure>
+            <figure class="movie" data-language="Kannada">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt7998242/"><img src="../static/Surprise_Movies/k5.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Avane srimannarayana</p>
+                <button>Language: Kannada</button>
+            </figure>
+            <figure class="movie" data-language="Kannada">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt7317482/"><img src="../static/Surprise_Movies/k6.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Pailwaan</p>
+                <button>Language: Kannada</button>
+            </figure>
+            <figure class="movie" data-language="Kannada">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt6203302/"><img src="../static/Surprise_Movies/k7.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:The villain</p>
+                <button>Language: Kannada</button>
+            </figure>
+            <figure class="movie" data-language="Kannada">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt9592496/"><img src="../static/Surprise_Movies/k8.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title: Pogaru</p>
+                <button>Language: Kannada</button>
+            </figure>
+
+            <!-- More movie figures here -->
+        </div>
+    </div>
+
+    <script>
+        function filterMovies(language) {
+            var movies = document.querySelectorAll('.movie');
+            movies.forEach(function(movie) {
+                if (movie.getAttribute('data-language') === language || language === 'All') {
+                    movie.style.display = 'inline-block';
+                } else {
+                    movie.style.display = 'none';
+                }
+            });
+        }
+
+        function searchMovie() {
+            const query = document.getElementById('movie-search').value.toLowerCase();
+            if (query.trim() !== '') {
+                // Redirect to a search results page
+                window.location.href = `https://www.imdb.com/find?q=${query}`;
+            }
+        }
+
+        // Display all movies when the page loads
+        window.onload = function() {
+            filterMovies('All');
+        }
+    </script>
+</body>
+</html>

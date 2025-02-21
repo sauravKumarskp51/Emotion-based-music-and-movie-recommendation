@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fear_Movies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 60px; /* To make space for the fixed navbar */
+            background-color: #f0f0f0;
+        }
+        .movie p{
+            color: #FFFFFF;
+            font-size: 14px;
+        }
+        .img-box {
+            width: 300px;
+            height: 400px;
+            margin: 10px;
+            overflow: hidden;
+            border: 4px solid black;
+            border-radius: 10px;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        .header {
+            width: 100%;
+            background-color: #333;
+            background-position: center;
+            background-size: cover;
+            overflow-x: hidden;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.1);
+            transition: 1s;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .box img:hover {
+            transform: scale(1.1);
+            z-index: 2;
+        }
+
+        figure {
+            display: inline-block;
+            margin: 10px;
+            text-align: center;
+            #flex: 1 1 300px;
+        }
+
+        button {
+            position: static;
+            left: 50%;
+            background-color: #444;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #666;
+        }
+
+        nav {
+            width: 100%;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between; /* Align items to the ends */
+            align-items: center; /* Center items vertically */
+            padding: 10px 20px; /* Adjust padding for better spacing */
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 300px;
+        }
+
+        .search-button {
+            padding: 8px 16px;
+            background-color: #444;
+            border: none;
+            color: white;
+            font-size: 16px;
+            margin-left: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px;
+            }
+
+            figure {
+                flex: 1 1 45%;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start; /* Align items to the start */
+            }
+
+            .search-input {
+                width: 200px;
+            }
+
+            .search-button {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            figure {
+                flex: 1 1 100%;
+            }
+
+            nav {
+                padding: 10px; /* Adjust padding for better spacing */
+            }
+
+            .search-input {
+                width: 150px;
+                font-size: 12px;
+            }
+
+            .search-button {
+                padding: 4px 8px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div>
+            <button onclick="filterMovies('All')">Home</button>
+            <button onclick="filterMovies('English')">English</button>
+            <button onclick="filterMovies('Hindi')">Hindi</button>
+            <button onclick="filterMovies('Kannada')">Kannada</button>
+            <button onclick="filterMovies('Telugu')">Telugu</button>
+        </div>
+        <div class="search-container">
+            <input type="text" id="movie-search" class="search-input" placeholder="Search for a movie..." onkeydown="if (event.key === 'Enter') searchMovie()">
+            <button onclick="searchMovie()" class="search-button">Search</button>
+        </div>
+    </nav>
+    <div class="header">
+        <div class="box" id="movie-box">
+            <!--English movie-->
+            <figure class="movie" data-language="English">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt1457767/"><img src="../static/Fear_Movies/e1.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:The conjuring</p>
+                <button>Language: English</button>
+            </figure>
+            <figure class="movie" data-language="English">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt0070047/"><img src="../static/Fear_Movies/e2.jpg" alt="Movie Poster"></a>
+                </div>
+                <p>Title:The Exorcist</p>
+                <button>Language: English</button>
+            </figure>
+            <figure class="movie" data-language="English">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt3322940/"><img src="../static/Fear_Movies/e3.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Annabelle</p>
+                <button>Language: English</button>
+            </figure>
+            <figure class="movie" data-language="English">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt13345606/"><img src="../static/Fear_Movies/e4.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Evil dead rise</p>
+                <button>Language: English</button>
+            </figure>
+            <figure class="movie" data-language="English">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt10638522/"><img src="../static/Fear_Movies/e5.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Talk to me</p>
+                <button>Language: English</button>
+            </figure>
+            <figure class="movie" data-language="English">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt15474916/"><img src="../static/Fear_Movies/e6.jpg" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Smile</p>
+                <button>Language: English</button>
+            </figure>
+            <figure class="movie" data-language="English">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt13560574/"><img src="../static/Fear_Movies/e7.jpg" alt="Movie Poster"></a>
+                </div>
+                <p>Title:X</p>
+                <button>Language: English</button>
+            </figure>
+            <figure class="movie" data-language="English">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt4263482/"><img src="../static/Fear_Movies/e8.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:The witch</p>
+                <button>Language: English</button>
+            </figure>
+
+
+
+
+
+
+
+            <!--Telugu movie-->
+            <figure class="movie" data-language="Telugu">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt24059780/"><img src="../static/Fear_Movies/t1.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Virupaksha</p>
+                <button>Language: Telugu</button>
+            </figure>
+            <figure class="movie" data-language="Telugu">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt23726308/"><img src="../static/Fear_Movies/t2.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Masooda</p>
+                <button>Language: Telugu</button>
+            </figure>
+            <figure class="movie" data-language="Telugu">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt16404416/"><img src="../static/Fear_Movies/t3.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Maa oori polimera</p>
+                <button>Language: Telugu</button>
+            </figure>
+            <figure class="movie" data-language="Telugu">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt1361809/"><img src="../static/Fear_Movies/t4.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Arundhati</p>
+                <button>Language: Telugu</button>
+            </figure>
+            <figure class="movie" data-language="Telugu">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt3402542/"><img src="../static/Fear_Movies/t5.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Avunu</p>
+                <button>Language: Telugu</button>
+            </figure>
+            <figure class="movie" data-language="Telugu">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt2971414/"><img src="../static/Fear_Movies/t6.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Prema katha chitram</p>
+                <button>Language: Telugu</button>
+            </figure>
+            <figure class="movie" data-language="Telugu">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt14676768/"><img src="../static/Fear_Movies/t7.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Ieandavi</p>
+                <button>Language: Telugu</button>
+            </figure>
+            <figure class="movie" data-language="Telugu">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt13979810/"><img src="../static/Fear_Movies/t8.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Dream catcher</p>
+                <button>Language: Telugu</button>
+            </figure>
+
+
+
+            <!--Hindi movie-->
+            <figure class="movie" data-language="Hindi">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt1267500/"><img src="../static/Fear_Movies/h1.jpg" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Phoonk</p>
+                <button>Language: Hindi</button>
+            </figure>
+            <figure class="movie" data-language="Hindi">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt3177332/"><img src="../static/Fear_Movies/h2.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Horror story</p>
+                <button>Language: Hindi</button>
+            </figure>
+            <figure class="movie" data-language="Hindi">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt2140315/"><img src="../static/Fear_Movies/h3.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Raaz 3</p>
+                <button>Language: Hindi</button>
+            </figure>
+            <figure class="movie" data-language="Hindi">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt2406676/"><img src="../static/Fear_Movies/h4.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Ek thi daayan</p>
+                <button>Language: Hindi</button>
+            </figure>
+            <figure class="movie" data-language="Hindi">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt7329858/"><img src="../static/Fear_Movies/h5.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Pari</p>
+                <button>Language: Hindi</button>
+            </figure>
+            <figure class="movie" data-language="Hindi">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt1301698/"><img src="../static/Fear_Movies/h6.jpg" alt="Movie Poster"></a>
+                </div>
+                <p>Title:1920</p>
+                <button>Language: Hindi</button>
+            </figure>
+            <figure class="movie" data-language="Hindi">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt0349333/"><img src="../static/Fear_Movies/h7.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Darna mana hai</p>
+                <button>Language: Hindi</button>
+            </figure>
+            <figure class="movie" data-language="Hindi">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt8108202/"><img src="../static/Fear_Movies/h8.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Stree</p>
+                <button>Language: Hindi</button>
+            </figure>
+
+
+
+
+
+
+
+
+            <!--Kannada movie-->
+            <figure class="movie" data-language="Kannada">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt3144084/"><img src="../static/Fear_Movies/k1.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Chaarulatha</p>
+                <button>Language: Kannada</button>
+            </figure>
+            <figure class="movie" data-language="Kannada">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt1339248/"><img src="../static/Fear_Movies/k2.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Apthamitra</p>
+                <button>Language: Kannada</button>
+            </figure>
+            <figure class="movie" data-language="Kannada">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt3178816/"><img src="../static/Fear_Movies/k3.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Kalpana</p>
+                <button>Language: Kannada</button>
+            </figure>
+            <figure class="movie" data-language="Kannada">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt7153418/"><img src="../static/Fear_Movies/k4.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Kataka</p>
+                <button>Language: Kannada</button>
+            </figure>
+            <figure class="movie" data-language="Kannada">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt13391696/"><img src="../static/Fear_Movies/k5.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Cold case</p>
+                <button>Language: Kannada</button>
+            </figure>
+            <figure class="movie" data-language="Kannada">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt5760590/"><img src="../static/Fear_Movies/k6.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Karva</p>
+                <button>Language: Kannada</button>
+            </figure>
+            <figure class="movie" data-language="Kannada">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt6303464/"><img src="../static/Fear_Movies/k7.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Mummy save me</p>
+                <button>Language: Kannada</button>
+            </figure>
+            <figure class="movie" data-language="Kannada">
+                <div class="img-box">
+                    <a href="https://www.imdb.com/title/tt25506052/"><img src="../static/Fear_Movies/k8.png" alt="Movie Poster"></a>
+                </div>
+                <p>Title:Choo mantar</p>
+                <button>Language: Kannada</button>
+            </figure>
+
+            <!-- More movie figures here -->
+        </div>
+    </div>
+    <script>
+        function searchMovie() {
+            const query = document.getElementById('movie-search').value.toLowerCase();
+            if (query.trim() !== '') {
+                // Redirect to a search results page
+                window.location.href = `https://www.imdb.com/find?q=${query}`;
+            }
+        }
+
+        function filterMovies(language) {
+            const movies = document.querySelectorAll('.movie');
+            movies.forEach(movie => {
+                if (language === 'All' || movie.dataset.language === language) {
+                    movie.style.display = 'inline-block';
+                } else {
+                    movie.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fear Songs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f0f0f0;
+            padding-top: 60px; /* To make space for the fixed nav bar */
+        }
+
+        nav {
+            width: 100%;
+            background-color: #333;
+            display: flex;
+            justify-content: space-between; /* Align items to the ends */
+            align-items: center; /* Center items vertically */
+            padding: 10px 20px; /* Adjust padding for better spacing */
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-buttons button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .nav-buttons button:hover {
+            background-color: #f39c12;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 300px;
+        }
+
+        .search-button {
+            padding: 8px 16px;
+            background-color: #444;
+            border: none;
+            color: white;
+            font-size: 16px;
+            margin-left: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #666;
+        }
+
+        .content {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .song {
+            display: none;
+            width: 200px;
+            margin: 10px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .song.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .song img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s;
+        }
+
+        .song:hover img {
+            transform: scale(1.05);
+        }
+
+        .song-label {
+            padding: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-buttons">
+            <button onclick="filterSongs('all')">Home</button>
+            <button onclick="filterSongs('English')">English</button>
+            <button onclick="filterSongs('Hindi')">Hindi</button>
+            <button onclick="filterSongs('Kannada')">Kannada</button>
+            <button onclick="filterSongs('Telugu')">Telugu</button>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="Search for songs..." onkeydown="if (event.key === 'Enter') searchSpotify()">
+            <button onclick="searchSpotify()" class="search-button">Search</button>
+        </div>
+    </nav>
+    <div class="content">
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/track/4ovNvv7eEbHUGjSEN7ubTW?autoplay=true"><img src="../static/fear_Songs/e1.png"></a>
+            <div class="song-label">Annabelle - English</div>
+        </div>
+
+
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/11JVUtJiWIbijkxBvGSfL9?autoplay=true"><img src="../static/fear_Songs/h1.png"></a>
+            <div class="song-label">Gumnaam Hai Koi - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/7wJc6SP8Hixj9ArmSUO1oL?autoplay=true"><img src="../static/fear_Songs/h2.png"></a>
+            <div class="song-label">Ami Je Tomar - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/album/4NFcyneOarb6TDWul6jgcB?autoplay=true"><img src="../static/fear_Songs/h3.png"></a>
+            <div class="song-label">Bhool Bhulaiyaa - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/4PNvrhAowLbeOxX5VOHBGf?autoplay=true"><img src="../static/fear_Songs/h4.png"></a>
+            <div class="song-label">Aaj Ro Len De - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/5TJOAIWHRYW8pRBpnvLUo1?autoplay=true"><img src="../static/fear_Songs/h5.png"></a>
+            <div class="song-label">Uska Hi Banana - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/1oPSszvaYwj64D8Yi8ixMs?autoplay=true"><img src="../static/fear_Songs/h6.png"></a>
+            <div class="song-label">Khud Ko Tere - Hindi</div>
+        </div>
+
+
+
+
+
+
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/316TbTBynqJreiZ41E8iNx?autoplay=true"><img src="../static/fear_Songs/k1.png"></a>
+            <div class="song-label">Thangali - Kannada</div>
+        </div>
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/4Vhj8EgK6rWyv34rKAGnLK?autoplay=true"><img src="../static/fear_Songs/k2.png"></a>
+            <div class="song-label">Ra Ra Sarasaku - Kannada</div>
+        </div>
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/5BtkpVLcpqccAd7jux4slY?autoplay=true"><img src="../static/fear_Songs/k3.png"></a>
+            <div class="song-label">Bandhelu Bandhelu - Kannada</div>
+        </div>
+
+
+
+        <div class="song active" data-language="Telugu">
+            <a href="https://open.spotify.com/album/3Jcvj4aT3TXARSjyG8ezru?autoplay=true"><img src="../static/fear_Songs/t1.png"></a>
+            <div class="song-label">Kanchana - Telugu</div>
+        </div>
+      </div>
+
+    <script>
+    function searchSpotify() {
+        const query = document.getElementById('search-input').value;
+        if (query) {
+            window.location.href = `https://open.spotify.com/search/${encodeURIComponent(query)}`;
+        }
+    }
+
+    function filterSongs(language) {
+        const songs = document.querySelectorAll('.song');
+        songs.forEach(song => {
+            if (language === 'all' || song.getAttribute('data-language') === language) {
+                song.classList.add('active');
+            } else {
+                song.classList.remove('active');
+            }
+        });
+    }
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

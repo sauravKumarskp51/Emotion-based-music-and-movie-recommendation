@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soothing Songs</title>
+    <style>Soothing      * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f0f0f0;
+            padding-top: 60px; /* To make space for the fixed nav bar */
+        }
+
+        nav {
+            width: 100%;
+            background-color: #333;
+            display: flex;
+            justify-content: space-between; /* Align items to the ends */
+            align-items: center; /* Center items vertically */
+            padding: 10px 20px; /* Adjust padding for better spacing */
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-buttons button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .nav-buttons button:hover {
+            background-color: #f39c12;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 300px;
+        }
+
+        .search-button {
+            padding: 8px 16px;
+            background-color: #444;
+            border: none;
+            color: white;
+            font-size: 16px;
+            margin-left: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #666;
+        }
+
+        .content {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .song {
+            display: none;
+            width: 200px;
+            margin: 10px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .song.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .song img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s;
+        }
+
+        .song:hover img {
+            transform: scale(1.05);
+        }
+
+        .song-label {
+            padding: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-buttons">
+            <button onclick="filterSongs('all')">Home</button>
+            <button onclick="filterSongs('English')">English</button>
+            <button onclick="filterSongs('Hindi')">Hindi</button>
+            <button onclick="filterSongs('Kannada')">Kannada</button>
+            <button onclick="filterSongs('Telugu')">Telugu</button>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="Search for songs..." onkeydown="if (event.key === 'Enter') searchSpotify()">
+            <button onclick="searchSpotify()" class="search-button">Search</button>
+        </div>
+    </nav>
+    <div class="content">
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/track/7BSMSvK0WxrDeI98bswYa8?autoplay=true"><img src="../static/Soothing_Songs/e1.png"></a>
+            <div class="song-label">Berlin - English</div>
+        </div>
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/track/6bIXN4xCot0hiEfzl2xFZR?autoplay=true"><img src="../static/Soothing_Songs/e2.png"></a>
+            <div class="song-label">Living Proof - English</div>
+        </div>
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/track/1wg3lYVQaggfn4qGnIVBec?autoplay=true"><img src="../static/Soothing_Songs/e3.png"></a>
+            <div class="song-label">Colours Colliding - English</div>
+        </div>
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/track/4Y0sakC0g6TBWV4oPN3Z46?autoplay=true"><img src="../static/Soothing_Songs/e4.png"></a>
+            <div class="song-label">Peace of Mind - English</div>
+        </div>
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/track/45RSaYVNGZhdpjbqcAukYI?autoplay=true"><img src="../static/Soothing_Songs/e5.png"></a>
+            <div class="song-label">Sweet Awakening - English</div>
+        </div>
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/track/3pMbjkN5k9z6kZ2bcEZH1s?autoplay=true"><img src="../static/Soothing_Songs/e6.png"></a>
+            <div class="song-label">Sapling - English</div>
+        </div>
+
+
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/6cUOiOY5qh2FpIQWIYAd2h?autoplay=true"><img src="../static/Soothing_Songs/h1.png"></a>
+            <div class="song-label">Mehrama - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/5O932cZmzOZGOGZz9RHx20?autoplay=true"><img src="../static/Soothing_Songs/h2.png"></a>
+            <div class="song-label">Khairiyat - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/0FBQ4NrrHUbR9kus7rzrOj?autoplay=true"><img src="../static/Soothing_Songs/h3.png"></a>
+            <div class="song-label">Dil Diyan Gallan - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/5OMUXgfXsSukZ0zxelpC3b?autoplay=true"><img src="../static/Soothing_Songs/h4.png"></a>
+            <div class="song-label">Raanjhanna - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/0l6g8Z8mqGbGXFOjigYetD?autoplay=true"><img src="../static/Soothing_Songs/h5.png"></a>
+            <div class="song-label">Hawayein - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/4bD9z9qa4qg9BhryvYWB7c?autoplay=true"><img src="../static/Soothing_Songs/h6.png"></a>
+            <div class="song-label">Kabira - Hindi</div>
+        </div>
+
+
+
+
+
+
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/4a4av6faxCAkMPYudlRLS1?autoplay=true"><img src="../static/Soothing_Songs/k1.png"></a>
+            <div class="song-label">Minchagi Neenu - Kannada</div>
+        </div>
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/0f75nmlFu4HFuH6mQLElda?autoplay=true"><img src="../static/Soothing_Songs/k2.png"></a>
+            <div class="song-label">Jagave Neenu Gelathiye - Kannada</div>
+        </div>
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/4NwqQ4DKeqBSPp03tBqfYR?autoplay=true"><img src="../static/Soothing_Songs/k3.png"></a>
+            <div class="song-label">Preethisuve - Kannada</div>
+        </div>
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/1twtuXCoBljSPT7y86yMCz?autoplay=true"><img src="../static/Soothing_Songs/k4.png"></a>
+            <div class="song-label">Nee Nenedare - Kannada</div>
+        </div>
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/5LnnbdVuYfZ5fkctilhQX6?autoplay=true"><img src="../static/Soothing_Songs/k5.png"></a>
+            <div class="song-label">Mungaru Maleye - Kannada</div>
+        </div>
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/0Ru7ofoQuzZ4BnPdK9M8cJ?autoplay=true"><img src="../static/Soothing_Songs/k6.png"></a>
+            <div class="song-label">Ondee Samene - Kannada</div>
+        </div>
+
+
+
+
+
+        <div class="song active" data-language="Telugu">
+            <a href="https://open.spotify.com/track/3Pz9uBUfnd1OVwZmciTJtt?autoplay=true"><img src="../static/Soothing_Songs/t1.png"></a>
+            <div class="song-label">Avunanavaa - Telugu</div>
+        </div>
+        <div class="song active" data-language="Telugu">
+            <a href="https://open.spotify.com/track/68VVkTg7AF02jvEotxipz9?autoplay=true"><img src="../static/Soothing_Songs/t2.png"></a>
+            <div class="song-label">Poondamalli - Telugu</div>
+        </div>
+    </div>
+
+    <script>
+    function searchSpotify() {
+        const query = document.getElementById('search-input').value;
+        if (query) {
+            window.location.href = `https://open.spotify.com/search/${encodeURIComponent(query)}`;
+        }
+    }
+
+    function filterSongs(language) {
+        const songs = document.querySelectorAll('.song');
+        songs.forEach(song => {
+            if (language === 'all' || song.getAttribute('data-language') === language) {
+                song.classList.add('active');
+            } else {
+                song.classList.remove('active');
+            }
+        });
+    }
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

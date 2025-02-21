@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Based Recommendation System</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        .header{
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(rgba(5,0,136,0.5),rgba(5,0,136,0.5)),url(static/img1.png);
+            background-position: center;
+            background-size: cover;
+            overflow-x: hidden;
+        }
+        
+        nav{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 4%; /* Reduced padding */
+            transition: background 1s;
+        }
+        
+        nav .logo{
+            display: flex;
+            align-items: center;
+            font-size: 30px;
+            font-weight: 600;
+            color: #FFF;
+        }
+        
+        nav .logo img{
+            width: 50px;
+            margin-right: 10px;
+        }
+        
+        nav ul li{
+            display: inline-block;
+            list-style: none;
+            margin: 10px 15px; /* Reduced margin */
+            font-size: 20px;
+        }
+        
+        nav ul li a{
+            text-decoration: none;
+            color: #FFF;
+            font-weight: 800;
+            transition: color 0.3s; /* Added transition for smooth hover effect */
+        }
+        
+        nav:hover{
+            background: #44a2af;
+        }
+        
+        nav:hover .logo{
+            color: #333;
+        }
+        
+        nav:hover ul li a{
+            color: #333;
+        }
+
+        nav ul li a:hover{
+            color: #9E8A30; /* Hover effect for nav buttons */
+        }
+        
+        .content{
+            margin-top: 9%;
+            margin-left: 9%;
+            color: #FFF;
+        }
+        
+        .content h1{
+            font-size: 120PX;
+            font-weight: 600;
+            line-height: 140px;
+        }
+        
+        .content p{
+            max-width: 500px;
+            line-height: 28px;
+            opacity: 0;
+        }
+        
+        .links{
+            margin-top: 30px;
+            opacity: 0;
+        }
+
+        .links a{
+            color: #FFF;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .links a:hover{
+            color: blue;
+        }
+
+        .btn:hover{
+            background-color: rgb(0, 195, 255);
+        }
+
+        .btn{
+            border: 2px solid #fff;
+            padding: 10px 35px;
+            border-radius: 30px;
+            margin-right: 15px;
+            font-weight: 700;
+        }
+        
+        .slide-left{
+            animation: slideleft 1s linear forwards;
+        }
+        
+        .content h1{
+            font-family: Brush Script MT, cursive;
+        }
+        
+        @keyframes slideleft{
+            0%{
+                transform: translate(100px);
+                opacity: 0;
+            }
+            100%{
+                transform: translate(0px);
+                opacity: 1;
+            }
+        }
+        
+        p.slide-left{
+            animation-delay: 1s;
+        }
+        
+        .links.slide-left{
+            animation-delay: 2s;
+            color: blue;
+        }
+
+        .output{
+            color: white;
+            font-family: cursive;
+        }
+
+        .output1{
+            margin-top: 20px;
+            color: white;
+            display: inline-block;
+            font-family: cursive;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <nav>
+            <div class="logo">
+                <img src="static/img2.png" alt="">
+                <span>MoodMentor</span>
+            </div>
+            <ul>
+                <li><a href="#">HOME</a></li>
+                <li><a href="#">FEATURES</a></li>
+                <li><a href="http://localhost:5000/templates/contact">CONTACT</a></li>
+                <li><a href="http://localhost:5000/templates/join_page">TEAM-INFO</a></li>
+                <li><a href="#">SUPPORT</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <h1 class="slide-left">To Embrace your<br>Emotion....!</h1>
+            <div class="links slide-left">
+                <a href="http://localhost:5000/camera" class="btn">Let's Start</a>
+                <button class="btn" onclick="startVoiceAssistant()">Voice Assistant</button>
+            </div>
+        </div>
+
+        <div class="output">
+            {% if final_output %}
+                <h2 style="font-family: Bio-Rhyme">Your Emotion is {{final_output}}</h2>
+                <div class="output1">
+                    <a href="http://localhost:5000/movies/{{final_output}}" class="btn">Movies</a>
+                    <a href="http://localhost:5000/songs/{{final_output}}" class="btn">Songs</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function startVoiceAssistant() {
+            if (!('webkitSpeechRecognition' in window)) {
+                alert("Your browser doesn't support speech recognition. Try using Google Chrome.");
+                return;
+            }
+
+            function speak(text, callback) {
+                var synth = window.speechSynthesis;
+                var utterThis = new SpeechSynthesisUtterance(text);
+                utterThis.onend = function() {
+                    if (callback) {
+                        callback();
+                    }
+                };
+                synth.speak(utterThis);
+            }
+
+            function playSpotifySong(songName) {
+                var spotifySearchUrl = 'https://open.spotify.com/search/' + encodeURIComponent(songName);
+                window.location.href = spotifySearchUrl;
+            }
+
+            function showIMDbMovie(movieName) {
+                var imdbSearchUrl = 'https://www.imdb.com/find?q=' + encodeURIComponent(movieName);
+                window.location.href = imdbSearchUrl;
+            }
+
+            var recognition = new webkitSpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            recognition.onresult = function(event) {
+                var speechResult = event.results[0][0].transcript.toLowerCase();
+                console.log('Speech received: ' + speechResult);  // Debugging line
+
+                if (speechResult.includes('play')) {
+                    var songName = speechResult.replace('play', '').trim();
+                    speak('Playing ' + songName + ' on Spotify', function() {
+                        playSpotifySong(songName);
+                    });
+                }
+                else if (speechResult.includes('suggest')) {
+                    var movieName = speechResult.replace('suggest', '').trim();
+                    console.log('Movie name extracted: ' + movieName);  // Debugging line
+                    speak('Showing ' + movieName + '', function() {
+                        showIMDbMovie(movieName);
+                    });
+                }
+                else if (speechResult.includes('happy movie')) {
+                    speak('Opening happy movie', function() {
+                        window.location.href = "http://localhost:5000/movies/happy";
+                    });
+                }
+                else if (speechResult.includes('fear movie')) {
+                    speak('Opening fear movie', function() {
+                        window.location.href = "http://localhost:5000/movies/fear";
+                    });
+                }
+                else if (speechResult.includes('neutral movie')) {
+                    speak('Opening neutral movie', function() {
+                        window.location.href = "http://localhost:5000/movies/neutral";
+                    });
+                }
+                else if (speechResult.includes('disgust movie')) {
+                    speak('Opening disgust movie', function() {
+                        window.location.href = "http://localhost:5000/movies/sad";
+                    });
+                }
+                else if (speechResult.includes('sad movie')) {
+                    speak('Opening sad movie', function() {
+                        window.location.href = "http://localhost:5000/movies/sad";
+                    });
+                }
+                else if (speechResult.includes('surprise movie')) {
+                    speak('Opening surprise movie', function() {
+                        window.location.href = "http://localhost:5000/movies/surprise";
+                    });
+                }
+                else if (speechResult.includes('angry movie')) {
+                    speak('Opening angry movie', function() {
+                        window.location.href = "http://localhost:5000/movies/angry";
+                    });
+                }
+                else if (speechResult.includes('fear song')) {
+                    speak('Opening fear song', function() {
+                        window.location.href = "http://localhost:5000/songs/fear";
+                    });
+                }
+                else if (speechResult.includes('happy song')) {
+                    speak('Opening happy song', function() {
+                        window.location.href = "http://localhost:5000/songs/happy";
+                    });
+                }
+                else if (speechResult.includes('sad song')) {
+                    speak('Opening sad song', function() {
+                        window.location.href = "http://localhost:5000/songs/sad";
+                    });
+                }
+                else if (speechResult.includes('surprise song')) {
+                    speak('Opening surprise song', function() {
+                        window.location.href = "http://localhost:5000/songs/neutral";
+                    });
+                }
+                else if (speechResult.includes('relaxing song')) {
+                    speak('Opening relaxing song', function() {
+                        window.location.href = "http://localhost:5000/songs/angry";
+                    });
+                }
+                else if (speechResult.includes('neutral song')) {
+                    speak('Opening neutral song', function() {
+                        window.location.href = "http://localhost:5000/songs/neutral";
+                    });
+                }
+                else if (speechResult.includes('disgust song')) {
+                    speak('Opening disgust song', function() {
+                        window.location.href = "http://localhost:5000/songs/sad";
+                    });
+                }
+                else {
+                    speak('Voice command not recognized. Please try again.');
+                }
+            };
+
+            recognition.onerror = function(event) {
+                console.log('Error occurred in recognition: ' + event.error);  // Debugging line
+                alert('Error occurred in recognition: ' + event.error);
+            };
+
+            recognition.start();
+        }
+    </script>
+</body>
+</html>

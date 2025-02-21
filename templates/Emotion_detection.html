@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection</title>
+    <style>
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 60%;
+        }
+        .header {
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(rgba(100,200,129,0.31),rgba(100,200,129,0.31)),url(static/img4.png);
+            background-position: center;
+            background-size: cover;
+            overflow-x: hidden;
+        }
+    </style>
+    <script>
+        async function checkEmotion() {
+            try {
+                const response = await fetch('/detect_emotion');
+                if (response.ok) {
+                    const data = await response.json();
+                    const emotion = data.emotion;
+                    alert("Detected emotion: " + emotion); // For debugging
+                    window.location.href = "/show_buttons?emotion=" + emotion; // Redirect to buttons.html with emotion
+                } else {
+                    console.error('Failed to detect emotion.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        window.onload = function() {
+            setTimeout(checkEmotion, 6000); // Wait for 6 seconds to detect emotion
+        };
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1 style="text-align:center;">Emotion Detection</h1>
+        <div style="text-align:center;">
+            <img src="{{ url_for('video_feed') }}" class="center">
+        </div>
+    </div>
+</body>
+</html>

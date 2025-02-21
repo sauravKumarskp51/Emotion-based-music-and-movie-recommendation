@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sad Songs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f0f0f0;
+            padding-top: 60px; /* To make space for the fixed nav bar */
+        }
+
+        nav {
+            width: 100%;
+            background-color: #333;
+            display: flex;
+            justify-content: space-between; /* Align items to the ends */
+            align-items: center; /* Center items vertically */
+            padding: 10px 20px; /* Adjust padding for better spacing */
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-buttons button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .nav-buttons button:hover {
+            background-color: #f39c12;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 300px;
+        }
+
+        .search-button {
+            padding: 8px 16px;
+            background-color: #444;
+            border: none;
+            color: white;
+            font-size: 16px;
+            margin-left: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #666;
+        }
+
+        .content {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .song {
+            display: none;
+            width: 200px;
+            margin: 10px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .song.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .song img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s;
+        }
+
+        .song:hover img {
+            transform: scale(1.05);
+        }
+
+        .song-label {
+            padding: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-buttons">
+            <button onclick="filterSongs('all')">Home</button>
+            <button onclick="filterSongs('English')">English</button>
+            <button onclick="filterSongs('Hindi')">Hindi</button>
+            <button onclick="filterSongs('Kannada')">Kannada</button>
+            <button onclick="filterSongs('Telugu')">Telugu</button>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="Search for songs..." onkeydown="if (event.key === 'Enter') searchSpotify()">
+            <button onclick="searchSpotify()" class="search-button">Search</button>
+        </div>
+    </nav>
+    <div class="content">
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/track/3VTIjTBvhxsKEvMqNUYv12?autoplay=true"><img src="../static/Sad_Songs/e1.png"></a>
+            <div class="song-label">Only Love Can Break Your Heart - English</div>
+        </div>
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/track/5GHY1DFWKz3Prg2V0Iodqo?autoplay=true"><img src="../static/Sad_Songs/e2.png"></a>
+            <div class="song-label">Nothing Compares 2 U - English</div>
+        </div>
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/search/Three%20Little%20Birds?autoplay=true"><img src="../static/Sad_Songs/e3.png"></a>
+            <div class="song-label">Strangers - English</div>
+        </div>
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/track/67Hna13dNDkZvBpTXRIaOJ?autoplay=true"><img src="../static/Sad_Songs/e4.png"></a>
+            <div class="song-label">Teardrop - English</div>
+        </div>
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/track/5wANPM4fQCJwkGd4rN57mH?autoplay=true"><img src="../static/Sad_Songs/e5.png"></a>
+            <div class="song-label">Drivers Licence - English</div>
+        </div>
+        <div class="song active" data-language="English">
+            <a href="https://open.spotify.com/track/46ydq5g3k17iLJs3qMDvO6?autoplay=true"><img src="../static/Sad_Songs/e6.png"></a>
+            <div class="song-label">Hurts So Good - English</div>
+        </div>
+
+
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/73y649QhnXdcm6fRdvfraO?autoplay=true"><img src="../static/Sad_Songs/h1.png"></a>
+            <div class="song-label">Abhi Mujh Mein Kahin - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/2JQgRmbKYnyo3z1Cn3BaQS?autoplay=true"><img src="../static/Sad_Songs/h2.png"></a>
+            <div class="song-label">Aankh Hai Bhari Bhari - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/22U37hhbLHPqsj9WKxR2FW?autoplay=true"><img src="../static/Sad_Songs/h3.png"></a>
+            <div class="song-label">Chahunga Main Tujhe - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/0WNCYgCd33LnBnw22WFuq8?autoplay=true"><img src="../static/Sad_Songs/h4.png"></a>
+            <div class="song-label">Bhula Dena - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/3bZPdEskcnMdepwCaDSJRl?autoplay=true"><img src="../static/Sad_Songs/h5.png"></a>
+            <div class="song-label">Bin Tere - Hindi</div>
+        </div>
+        <div class="song active" data-language="Hindi">
+            <a href="https://open.spotify.com/track/4eFnk661RcdOuH9ajiTO3j?autoplay=true"><img src="../static/Sad_Songs/h6.png"></a>
+            <div class="song-label">Banjaara - Hindi</div>
+        </div>
+
+
+
+
+
+
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/7MsH6gZMOgzohJYDLGHHVw?autoplay=true"><img src="../static/Sad_Songs/k1.png"></a>
+            <div class="song-label">Bisilu Kudureyondu - Kannada</div>
+        </div>
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/1S1PsVlhHFsORMhv9BR2zl?autoplay=true"><img src="../static/Sad_Songs/k2.png"></a>
+            <div class="song-label">Neeralli Sanna-F - Kannada</div>
+        </div>
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/09YyWqzKBGaHWZUl8UUYot?autoplay=true"><img src="../static/Sad_Songs/k3.png"></a>
+            <div class="song-label">Kaarmoda Saridhu - Kannada</div>
+        </div>
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/2t77CqtjaAeWISKMlMHzyr?autoplay=true"><img src="../static/Sad_Songs/k4.png"></a>
+            <div class="song-label">Ninadene Janumma - Kannada</div>
+        </div>
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/2M3WJF5CLZp5XEJxO53Gis?autoplay=true"><img src="../static/Sad_Songs/k5.png"></a>
+            <div class="song-label">Male Ninthu Hoda Mele - Kannada</div>
+        </div>
+        <div class="song active" data-language="Kannada">
+            <a href="https://open.spotify.com/track/1SbSmiaGaw2RBa6OH3aeaK?autoplay=true"><img src="../static/Sad_Songs/k6.png"></a>
+            <div class="song-label">Gamanishu - Kannada</div>
+        </div>
+
+
+
+
+
+        <div class="song active" data-language="Telugu">
+            <a href="https://open.spotify.com/track/4m7mqMdHGb0SrvCJe8F2k3?autoplay=true"><img src="../static/Sad_Songs/t1.png"></a>
+            <div class="song-label">Varinche Prema - Telugu</div>
+        </div>
+        <div class="song active" data-language="Telugu">
+            <a href="https://open.spotify.com/track/37I2SLeJcpkQpKFMLJt550?autoplay=true"><img src="../static/Sad_Songs/t2.png"></a>
+            <div class="song-label">Karige Loga - Telugu</div>
+        </div>
+    </div>
+
+    <script>
+    function searchSpotify() {
+        const query = document.getElementById('search-input').value;
+        if (query) {
+            window.location.href = `https://open.spotify.com/search/${encodeURIComponent(query)}`;
+        }
+    }
+
+    function filterSongs(language) {
+        const songs = document.querySelectorAll('.song');
+        songs.forEach(song => {
+            if (language === 'all' || song.getAttribute('data-language') === language) {
+                song.classList.add('active');
+            } else {
+                song.classList.remove('active');
+            }
+        });
+    }
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
